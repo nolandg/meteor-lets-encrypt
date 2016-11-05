@@ -1,5 +1,5 @@
-Easily secure Meteor with free, automatically issued SSL certificates from [Let's Encrypt](https://letsencrypt.org/).
-Now it's free and easy to securely serve your Meteor app/site over https without needing Galaxy or Meteor Up.
+Easily secure Meteor with free, automatically issued SSL certificates from [Let's Encrypt](https://letsencrypt.org/)
+without needing Galaxy or Meteor Up.
 
 # Motivation
 Without some help, Meteor does not play nice with the Let's Encrypt [Certbot](https://certbot.eff.org/). This is because Meteor manages the `public` directory and the `certbot` CLI cannot write ACME challenges to that directory and have it immediately readable by the challenge issuer. Thus it fails to prove domain name control.  You can work around this by using the manual cert issuing workflow, copy and paste filenames and contents, and rebuild your Meteor app.
@@ -42,9 +42,9 @@ Specifically, you'll need the `certonly --webroot` options. See the [Certbot web
 A typical command might look like.
 ````shell
 sudo letsencrypt certonly \
-        --webroot --webroot-path /etc/letsencrypt/challenges/ \ # this needs to be the same path as in your settings file
-        --cert-path /etc/letsencrypt/live/mydomain.ca \ # this is where your new certs and key are stored
-        --domain mydomain.ca \ # all the domains (and subdomains) you want to secure
+        --webroot --webroot-path /etc/letsencrypt/challenges/ \ # same as your settings file
+        --cert-path /etc/letsencrypt/live/mydomain.ca \
+        --domain mydomain.ca \
         --domain subdomain.mydomain.ca
 ````
 Try it without `sudo` to get instructions on how to do that if that's your thing. You can also just run:
