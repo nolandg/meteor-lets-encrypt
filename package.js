@@ -1,8 +1,8 @@
 Package.describe({
   name: 'noland:lets-encrypt',
-  version: '1.1.0',
+  version: '1.1.1',
   summary: 'Automatic issuing of Let\'s Encrypt free SSL certificates',
-  git: '',
+  git: 'https://github.com/nolandg/meteor-lets-encrypt',
   documentation: 'README.md'
 });
 
