@@ -8,7 +8,7 @@ But that sucks. So with this package you can simply run `letsencrypt certonly --
 
 # Installation
 ## Add Package
-Add the Meteor package to your Meteor project:
+Add the package to your Meteor project:
 ````shell
 $ meteor add noland:lets-encrypt
 ````
@@ -17,7 +17,20 @@ Follow the [Let's Encrypt Certbot installation instructions](https://certbot.eff
 
 ## Update your settings file
 This package requires a settings file to specify where to find the challenge files the `certbot` creates.
-If you're
+If you're not already using one, read about [how to create and use a settings file](https://themeteorchef.com/snippets/making-use-of-settings-json/).
+
+Either of these keys will work, your preference:
+````json
+{
+  "letsEncryptChallengesDir": "/etc/letsencrypt/challenges/",
+  "private": {
+    "letsEncryptChallengesDir": "/etc/letsencrypt/challenges/",
+  }
+}
+````
+The path must match the `--webroot` path you give to the Certbot.
+
+Don't forget to actually use your settings file.
 
 # Usage
 The package automatically responds to challenges from the Let's Encrypt validation server using challenge responses saved in the directory you specified above. You don't need to do anything more on the Meteor end of things.
@@ -46,7 +59,7 @@ I use [PM2](http://pm2.keymetrics.io/) and [Redbird Reverse Proxy](https://githu
 I serve multiple secured domains from the same VPS and same IP address using [SNI](https://en.wikipedia.org/wiki/Server_Name_Indication)
 with a Redbird config like so:
 ````js
-webProxy.register('mydomain.ca', 'http://localhost:7010', { // Meteor is configured to listen on 7010
+webProxy.register('mydomain.ca', 'http://localhost:7010', { // my Meteor is configured to listen on 7010
   ssl: {
     key: '/etc/letsencrypt/live/mydomain.ca/privkey.pem',
     cert: '/etc/letsencrypt/live/mydomain.ca/fullchain.pem',
@@ -59,8 +72,6 @@ So to tell Redbird to use the new cert and key, I run:
 sudo pm2 restart redbird-reverse-proxy
 ````
 
-# How it works
-
 # Security warning
 **TL;DR** Don't put private files in the `letsEncryptChallengesDir` directory.
 
@@ -72,3 +83,7 @@ Any file immediately in the directory named in your Meteor settings under the ke
 will be served to the public. No deeper/nested files or parent folders will be served.
 
 # Next steps
+Let's Encrypt certs are only issued for 3 months. It would be fairly easy to completely automate the renewal process
+by making a cron job to check expiry date and re-running the above commands every 3 months.
+
+PRs and co-maintainer welcome.

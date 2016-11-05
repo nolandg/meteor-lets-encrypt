@@ -16,10 +16,10 @@ WebApp.connectHandlers.use("/.well-known/acme-challenge/", function(req, res, ne
   try{
     challengeResponse = fs.readFileSync(challengesDir + challengeFilename, 'utf8');
   }catch(error){
+    console.log('Error opening Let\'s Encrypt challenge file:');
     console.log(error);
     res.writeHead(404);
-    let page = 'Could not find that challenge file.<br />';
-    page += error;
+    let page = 'Could not find that challenge file.';
     res.end(page);
     return;
   }
