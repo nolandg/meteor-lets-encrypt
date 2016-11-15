@@ -24,7 +24,7 @@ Either of these keys will work, your preference:
 {
   "letsEncryptChallengesDir": "/etc/letsencrypt/challenges/",
   "private": {
-    "letsEncryptChallengesDir": "/etc/letsencrypt/challenges/",
+    "letsEncryptChallengesDir": "/etc/letsencrypt/challenges/"
   }
 }
 ````
